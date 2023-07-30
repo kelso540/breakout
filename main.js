@@ -41,6 +41,7 @@ const G = {
   paddle: {
     X: 100, 
     Y: 40, 
+    prevX: 100,
     width: 100, 
     height: 5, 
     color: "purple",
@@ -146,12 +147,6 @@ const drawStartPaddle = ()=>{
   if(G.paddle.X >= canvas.width - G.paddle.width - 10){
     G.paddle.X = canvas.width - G.paddle.width - 10
   }
-  if (G.paddle.booleanL === true){
-    G.paddle.X -= 10
-  }
-  if (G.paddle.booleanR === true){
-    G.paddle.X += 10
-  }
   ctxStart.fillStyle = 'lightgreen'
   ctxStart.fillRect(G.paddle.X, G.paddle.Y, G.paddle.width, G.paddle.height)
 }
@@ -196,12 +191,20 @@ const startCanvas = () => {
 
 // **** CONTROLS BALL SETINGS **** //
 const drawBall = ()=>{
+  G.paddle.prevX = G.paddle.X
   if (testFrontEdge(G.ball, G.paddle)){
     G.hitPaddle = true  
     G.multiplyer = 1
     G.scoreMultiplyer = 10 
-    console.log(G.hitPaddle)
     G.ball.speedY = -G.ball.speedY
+
+    // if(G.paddle.X > G.paddle.prevX){
+    //   G.ball.speedX = -G.ball.speedX
+    // }
+    // if(G.paddle.X < G.paddle.prevX){
+    //   G.ball.speedX = -G.ball.speedX
+    // }
+
   }
   if (G.ball.Y >= (canvas.height - G.ball.width)) {
       G.ball.speedY = -G.ball.speedY
@@ -218,12 +221,14 @@ const drawBall = ()=>{
       G.selectors.restartBtn.style.display = 'block'
       ctx.fillStyle = 'red'
       ctx.fillText('GAME OVER', canvas.width/2, 80)
+      return true
     } else {
       G.selectors.resetBtn.style.display = 'block'
       G.selectors.leftBtn.style.display = 'none'
       G.selectors.rightBtn.style.display = 'none'
       ctx.fillStyle = 'red'
       ctx.fillText('BALL OUT', canvas.width/2, 80)
+      return true
     }
   }
   G.ball.X = G.ball.X - G.ball.speedX
@@ -306,9 +311,6 @@ const changeLevel = ()=>{
       ${Math.floor(Math.random() * 255) + 100}, 
       ${Math.floor(Math.random() * 255) + 100}
     )`
-    G.ball.speedX++
-    G.ball.speedY++
-    G.paddle.speed++
     G.level++
     createBlocks()
   }
@@ -331,25 +333,17 @@ const changeScore = ()=>{
     G.scoreMultiplyer += 10
     G.multiplyer++
     G.score += G.scoreMultiplyer
-    const recurseText = ()=>{
-      if(G.counter >= 10){
-        G.counter = 0
-        return
-      } else {
-        G.counter++
-        ctx.fillStyle = `rgb(
-          ${Math.floor(Math.random() * 255) + 100}, 
-          ${Math.floor(Math.random() * 255) + 100}, 
-          ${Math.floor(Math.random() * 255) + 100}
-        )`
-        ctx.textAlign = 'center'
-        ctx.fillText(`x${G.multiplyer}`, G.ball.X, G.ball.Y - 20)
-        recurseText()
-        ctx.textAlign = 'center'
-        ctx.fillText(`x${G.multiplyer}`, G.ball.X, G.ball.Y - 20)
-      }
+    for(let i = 0; i < 20; i++){
+      ctx.fillStyle = `rgb(
+        ${Math.floor(Math.random() * 255) + 100}, 
+        ${Math.floor(Math.random() * 255) + 100}, 
+        ${Math.floor(Math.random() * 255) + 100}
+      )`
+      ctx.textAlign = 'center'
+      ctx.fillText(`x${G.multiplyer}`, G.ball.X, G.ball.Y - 20)
+      ctx.textAlign = 'center'
+      ctx.fillText(`x${G.multiplyer}`, G.ball.X, G.ball.Y - 20)
     }
-    recurseText()
   } else {
     G.score += 10
   }
