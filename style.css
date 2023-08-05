@@ -38,8 +38,6 @@ button{
   font-family: 'M PLUS Rounded 1c', sans-serif;
   cursor: pointer;
   touch-action: manipulation;
-  user-select: none !important;
-  -webkit-user-select: none !important;
 }
 button:hover{
   background-color: rgb(149, 3, 3);
