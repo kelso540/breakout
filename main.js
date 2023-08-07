@@ -389,7 +389,7 @@ const handleKeydown = (event)=>{
     G.paddle.booleanR = true
   }
 }
-const handleKeyUp = (event)=>{
+const handleKeyUp = ()=>{
     G.paddle.booleanL = false
     G.paddle.booleanR = false
 }
