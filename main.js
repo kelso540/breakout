@@ -113,7 +113,7 @@ const createBlocks = ()=>{
 window.onload = ()=>createBlocks()
 
 
-// *********************************BEFORE GAME CANVAS SETTINGS**************************************\
+// *********************************BEFORE GAME CANVAS SETTINGS************************************** \\
 // ****START GAME LOOP**** //
 const firstLoadCanvas = ()=>{
   ctxStart.clearRect(0, 0, canvas.width, canvas.height)
@@ -174,11 +174,11 @@ const printStartText = ()=>{
   ctxStart.fillText('when game starts', canvas.width/2, 310)
   ctxStart.fillText('Press begin to start', canvas.width/2, 400)
 }
-// ****************************************************************************************************
+// **************************************************************************************************** \\
 
 
 
-// *********************************GAME PLAY CANVAS SETTINGS******************************************
+// *********************************GAME PLAY CANVAS SETTINGS****************************************** \\
 // **** MAIN GAME LOOP **** //
 const startCanvas = () => {    
   ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -348,7 +348,7 @@ const changeScore = ()=>{
     G.score += 10
   }
 }
-// *****************************************************************************************************
+// ***************************************************************************************************** \\
 
 // ****CONTROL FOR RESET BTN**** //
 G.selectors.resetBtn.addEventListener('click', ()=>{
